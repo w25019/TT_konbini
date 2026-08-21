@@ -1,0 +1,6 @@
+"use client";
+import Link from"next/link";import{useEffect}from"react";import{useRouter}from"next/navigation";import{Box,Heart,MapPin,CreditCard,Ticket,Coins,User,HelpCircle,ChevronRight}from"lucide-react";import{useStore}from"../context/StoreContext";
+export const accountNav=[[Box,"注文履歴","/orders"],[Heart,"お気に入り","/favorites"],[MapPin,"お届け先管理","/mypage/address"],[CreditCard,"支払い方法","/mypage/payment"],[Ticket,"クーポン","/mypage/coupons"],[Coins,"ポイント","/mypage/points"],[User,"会員情報","/mypage/profile"],[HelpCircle,"お問い合わせ","/mypage/contact"]]as const;
+export function AccountNav(){return <aside className="account-nav"><h3>♙　マイページ</h3>{accountNav.map(([I,t,h])=><Link href={h} key={t}><I/>{t}<ChevronRight/></Link>)}<div className="member"><b>TT会員限定特典</b><p>デモクーポンやポイントを確認できます。</p><i>🎁</i></div></aside>}
+export function AccountPage({title,children}:{title:string;children:React.ReactNode}){return <div className="container account"><AccountNav/><section className="account-content"><h1>{title}</h1>{children}</section></div>}
+export function AccountGuard({children}:{children:React.ReactNode}){const s=useStore();const router=useRouter();useEffect(()=>{if(s.hydrated&&!s.isAuthenticated)router.replace("/login")},[s.hydrated,s.isAuthenticated,router]);return s.hydrated&&s.isAuthenticated?<>{children}</>:<div className="container"><p>読み込んでいます...</p></div>}
