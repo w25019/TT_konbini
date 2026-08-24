@@ -42,13 +42,22 @@ body{background:#fafafa;font-family:Arial,"Yu Gothic",sans-serif}
 .simple-hero h1{font-size:38px;line-height:1.35;margin:0 0 12px}
 .simple-hero span{display:block;line-height:1.8;margin-bottom:22px;color:#555}
 .simple-hero img{width:100%;height:220px;object-fit:contain}
+.simple-hero-buttons{display:flex;gap:10px}
+.simple-benefits{display:grid;grid-template-columns:repeat(3,1fr);background:#fff;border:1px solid #ccc;border-top:0}
+.simple-benefits p{margin:0;padding:17px;text-align:center;border-right:1px solid #ddd}
+.simple-benefits p:last-child{border-right:0}
+.simple-benefits b,.simple-benefits span{display:block}
+.simple-benefits b{color:var(--green);font-size:16px}
+.simple-benefits span{font-size:12px;color:#666;margin-top:3px}
 .simple-section{margin-top:35px}
 .simple-section>h2,.simple-title h2,.simple-notice h2{font-size:22px;margin:0 0 16px;padding-bottom:8px;border-bottom:2px solid var(--green)}
 .simple-title{display:flex;justify-content:space-between;align-items:flex-start}
 .simple-title a,.simple-notice a{color:var(--green);text-decoration:underline}
 .simple-categories{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
-.simple-categories a{background:#fff;border:1px solid #bbb;padding:15px 8px;text-align:center}
+.simple-categories a{background:#fff;border:1px solid #bbb;padding:10px 8px;text-align:center}
 .simple-categories a:hover{background:#eef8f0}
+.simple-categories .product-image{height:80px}
+.simple-categories span{display:block;margin-top:8px;font-weight:bold;font-size:13px}
 .simple-product-grid{grid-template-columns:repeat(4,1fr);gap:14px}
 .product-card{border-radius:2px;box-shadow:none;padding:12px}
 .product-card:hover{box-shadow:none;transform:none;border-color:#777}
@@ -77,7 +86,106 @@ body{background:#fafafa;font-family:Arial,"Yu Gothic",sans-serif}
   .simple-hero h1{font-size:29px}
   .simple-hero img{height:150px;grid-row:1}
   .simple-hero .primary{margin:auto}
+  .simple-hero-buttons{justify-content:center}
+  .simple-benefits{grid-template-columns:1fr}
+  .simple-benefits p{border-right:0;border-bottom:1px solid #ddd}
+  .simple-benefits p:last-child{border-bottom:0}
   .simple-categories{grid-template-columns:repeat(2,1fr)}
   .simple-product-grid{grid-template-columns:repeat(2,1fr)}
   .simple-footer div{flex-direction:column;gap:8px}
+}
+
+/* Apply the same simple design to every page */
+.container{max-width:1100px;padding:28px 20px}
+.container h1{font-size:26px}
+.crumb{font-size:12px;margin-bottom:18px}
+.outline{border-radius:3px}
+.empty{background:#fff;border:1px solid #bbb;border-radius:2px;padding:45px 20px}
+
+/* Product list */
+.catalog{grid-template-columns:210px 1fr;gap:28px}
+.filters{background:#fff;border:1px solid #bbb;border-radius:2px}
+.filter-head{background:#f2f2f2;border-bottom:1px solid #bbb}
+.filters h4{font-size:14px;border-color:#ddd}
+.filters input,.filters button,.listing-head select,.tabs button{border-radius:2px!important}
+.listing-head{border-bottom:2px solid var(--green);margin-bottom:14px}
+.listing-head h1{margin:0 0 12px}
+.tabs{gap:6px}
+.tabs button{padding:8px 13px}
+.listing-grid{grid-template-columns:repeat(3,1fr);gap:14px}
+.listing-grid .product-card{min-height:245px}
+.pagination button{border-radius:2px}
+
+/* Product detail */
+.detail{grid-template-columns:1fr 1fr;gap:24px}
+.gallery,.product-info,.info-tabs{background:#fff;border:1px solid #bbb;border-radius:2px}
+.product-info{padding:26px}
+.product-info h1{font-size:27px}
+.product-info .share,.thumbs button{border-radius:2px}
+.buy-row{grid-template-columns:150px 1fr;gap:18px}
+.qty{border-radius:2px}
+.info-tabs button{font-size:13px}
+.related-grid{grid-template-columns:repeat(4,1fr)}
+
+/* Cart and checkout */
+.cart-page,.checkout{gap:24px}
+.cart-table,.summary,.order-box,.checkout-card{background:#fff;border:1px solid #bbb;border-radius:2px;box-shadow:none}
+.cart-head{background:#f2f2f2}
+.cart-page h1,.checkout-card h2{font-weight:600}
+.summary h2,.order-box h2{border-bottom:2px solid var(--green);padding-bottom:10px}
+.coupon input,.coupon button,.field-row select,.checkout-card textarea,.payment button{border-radius:2px!important}
+.shipping-progress{background:#f2f8f3}
+.steps i{border-radius:2px}
+.checkout-card{padding:20px}
+.payment button{min-height:80px}
+.success{background:#fff;border:1px solid #bbb;border-radius:2px;padding:45px}
+
+/* Login and account pages */
+.login-card{background:#fff;border:1px solid #bbb;border-radius:2px;box-shadow:none}
+.login-card input,.login-card button{border-radius:2px}
+.account{grid-template-columns:210px 1fr;gap:28px}
+.account-nav,.welcome,.dash-grid,.settings-form,.coupon-ticket,.point-panel{border-radius:2px;box-shadow:none}
+.account-nav{border-color:#bbb}
+.account-nav>a{height:48px}
+.welcome{background:#f3f8f4;border:1px solid #b9d1be;min-height:170px}
+.stats{border-radius:2px}
+.dash-grid{background:#fff;border-color:#bbb}
+.quick-account>a{border-radius:2px;background:#fff}
+.settings-form{border-color:#bbb}
+.settings-form input,.settings-form textarea{border-radius:2px}
+.coupon-ticket,.point-panel{background:#f3f8f4}
+
+/* Orders, favorites and information pages */
+.saved-order,.order-history,.info-page{border:1px solid #bbb;border-radius:2px;box-shadow:none;background:#fff}
+.saved-order-head em{border-radius:2px}
+.info-page{max-width:850px;padding:28px}
+.info-page h1{font-size:27px;border-bottom:2px solid var(--green);padding-bottom:12px}
+.info-page h2{font-size:18px}
+.simple-page>h1{border-bottom:2px solid var(--green);padding-bottom:10px}
+.toast{border-radius:2px;box-shadow:none}
+
+@media(max-width:900px){
+  .listing-grid{grid-template-columns:repeat(2,1fr)}
+  .detail,.cart-page,.checkout,.account{grid-template-columns:1fr}
+  .account-nav{display:flex;overflow:auto}
+  .account-nav h3,.account-nav .member{display:none}
+  .account-nav>a{min-width:150px}
+  .related-grid{grid-template-columns:repeat(3,1fr)}
+}
+
+@media(max-width:700px){
+  .container{padding:18px 12px}
+  .catalog{display:block}
+  .filters{margin-bottom:18px}
+  .listing-grid{grid-template-columns:repeat(2,1fr)}
+  .detail{display:block}
+  .gallery{margin-bottom:12px}
+  .product-image.big{height:280px}
+  .buy-row{grid-template-columns:1fr}
+  .cart-page,.checkout{display:block}
+  .summary,.order-box{margin-top:18px}
+  .payment{grid-template-columns:1fr 1fr}
+  .related-grid{grid-template-columns:repeat(2,1fr)}
+  .login-card{margin:18px 12px;padding:25px 20px}
+  .info-page{padding:20px}
 }
