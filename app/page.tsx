@@ -1,4 +1,56 @@
 "use client";
-import Link from"next/link";import{ChevronRight,Headphones,Percent,ShieldCheck,Truck}from"lucide-react";import{categories,products}from"../src/data/products";import{ProductCard,ProductImage}from"../src/components/product";import{Shell}from"../src/components/layout";
-const categoryProducts=[products[0],products[3],products[6],products[9],products[12],products[15],products[20],products[19],products[21],products[23]];
-export default function Home(){const popular=products.filter(p=>p.isPopular).slice(0,6);return <Shell><div className="home-wrap"><aside className="category-side"><h3>☰　すべてのカテゴリ</h3>{categories.map((c,i)=><Link href={`/products?category=${encodeURIComponent(c)}`} key={c}><span><img src={categoryProducts[i].image} alt=""/>{c}</span><ChevronRight/></Link>)}</aside><section className="home-main"><div className="hero"><div className="hero-copy"><em>本日の特集</em><h1>最大 <strong>25%</strong> OFF</h1><h2>対象商品がお得</h2><Link className="primary" href="/products?deal=1">お得な商品を見る　›</Link></div><div className="hero-products"><img src="/banners/hero-products-v2.png" alt="人気のコンビニ商品ラインナップ"/></div><div className="dots">●　●　●　●</div></div><div className="service-row">{[[Truck,"最短配送","ご注文から最短当日でお届けします"],[ShieldCheck,"安心決済","安全なデモ決済で安心"],[Percent,"お得な価格","特別割引が充実"],[Headphones,"デモサポート","お問い合わせフォームをご用意"]].map(([I,t,d])=><div key={t as string}>{<I/>}<span><b>{t as string}</b><small>{d as string}</small></span></div>)}</div><section className="section"><div className="section-title"><h2>人気のカテゴリ</h2><Link href="/products">すべて見る →</Link></div><div className="category-cards">{categories.slice(0,8).map((c,i)=><Link href={`/products?category=${encodeURIComponent(c)}`} key={c}><ProductImage product={categoryProducts[i]}/><b>{c}</b></Link>)}</div></section><div className="home-products"><section className="section"><div className="section-title"><h2>人気商品</h2><Link href="/products?popular=1">すべて見る →</Link></div><div className="product-grid home-grid">{popular.map(p=><ProductCard p={p} key={p.id}/>)}</div><div className="home-mode-links"><Link href="/products?new=1">新商品を見る</Link><Link href="/products?deal=1">お得商品を見る</Link></div></section><aside className="promo"><b>TTへようこそ！</b><p>初めてのご注文で使える</p><h3>初回注文10%OFF</h3><code>WELCOME10</code><div className="promo-products">{products.slice(9,12).map(p=><img src={p.image} alt={p.name} key={p.id}/>)}</div><Link className="primary" href="/products?deal=1">今すぐ購入</Link></aside></div></section></div></Shell>}
+
+import Link from "next/link";
+import { Shell } from "../src/components/layout";
+import { ProductCard } from "../src/components/product";
+import { categories, products } from "../src/data/products";
+
+export default function Home() {
+  const popularProducts = products.filter((product) => product.isPopular).slice(0, 4);
+
+  return (
+    <Shell>
+      <div className="simple-home">
+        <section className="simple-hero">
+          <div>
+            <p>TT オンラインコンビニ</p>
+            <h1>コンビニ商品を<br />かんたんに注文</h1>
+            <span>おにぎり、飲み物、お菓子などを販売しているデモサイトです。</span>
+            <Link className="primary" href="/products">商品を見る</Link>
+          </div>
+          <img src="/banners/hero-products-v2.png" alt="コンビニ商品のイメージ" />
+        </section>
+
+        <section className="simple-section">
+          <h2>カテゴリーから探す</h2>
+          <div className="simple-categories">
+            {categories.slice(0, 6).map((category) => (
+              <Link key={category} href={`/products?category=${encodeURIComponent(category)}`}>
+                {category}
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        <section className="simple-section">
+          <div className="simple-title">
+            <h2>おすすめ商品</h2>
+            <Link href="/products">商品一覧へ</Link>
+          </div>
+          <div className="product-grid simple-product-grid">
+            {popularProducts.map((product) => (
+              <ProductCard p={product} key={product.id} />
+            ))}
+          </div>
+        </section>
+
+        <section className="simple-notice">
+          <h2>このサイトについて</h2>
+          <p>学校のポートフォリオとして制作した、オンラインコンビニのデモサイトです。</p>
+          <p>実際の注文や決済は行われません。</p>
+          <Link href="/about">詳しく見る</Link>
+        </section>
+      </div>
+    </Shell>
+  );
+}
