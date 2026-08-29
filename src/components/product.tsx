@@ -6,7 +6,6 @@ import { useStore } from "../context/StoreContext";
 import { yen } from "./layout";
 
 // PRODUCT IMAGE
-// Reused by product cards, cart rows, checkout, and product details.
 export function ProductImage({
   product,
   big = false,
@@ -30,7 +29,7 @@ export function Rating({ p }: { p: Product }) {
   );
 }
 export function ProductBadges({ p }: { p: Product }) {
-  // Only show badges when the matching product data is true.
+  // PRODUCT BADGES
   return (
     <div className="product-badges">
       {p.isNew && <span className="new">NEW</span>}
@@ -46,7 +45,7 @@ export function ProductPrice({
   p: Product;
   detail?: boolean;
 }) {
-  // Discounted products show the old price before the current price.
+  // PRODUCT PRICE
   return (
     <div className={detail ? "detail-price price-stack" : "price price-stack"}>
       {p.oldPrice && p.discount ? (
@@ -58,8 +57,7 @@ export function ProductPrice({
   );
 }
 export function ProductCard({ p }: { p: Product }) {
-  // PRODUCT CARD ACTIONS
-  // The buttons update favorites or add this product to the shared cart.
+  // PRODUCT CARD
   const { add, toggleFavorite, favorites } = useStore();
   const favorite = favorites.includes(p.id);
   return (
@@ -104,8 +102,7 @@ export function Quantity({
   onChange: (n: number) => void;
   max?: number;
 }) {
-  // QUANTITY CONTROL
-  // Buttons stop at the minimum of 1 and the maximum stock value.
+  // QUANTITY BUTTONS
   return (
     <div className="qty">
       <button

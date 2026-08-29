@@ -10,7 +10,6 @@ import React, {
 import { Product, products } from "../data/products";
 
 // DATA TYPES
-// These types describe the shape of cart, user, address, and order data.
 export type CartItem = { product: Product; quantity: number };
 export type Profile = { name: string; email: string; phone: string };
 export type Address = {
@@ -77,8 +76,7 @@ type Store = {
 const C = createContext<Store | null>(null);
 const defaultProfile: Profile = { name: "", email: "", phone: "" };
 
-// LOCAL STORAGE READER
-// Reads saved browser data. If nothing is saved, it returns the fallback value.
+// READ LOCAL STORAGE
 function read<T>(key: string, fallback: T): T {
   try {
     const value = localStorage.getItem(key);
@@ -90,7 +88,6 @@ function read<T>(key: string, fallback: T): T {
 
 export function StoreProvider({ children }: { children: React.ReactNode }) {
   // STORE STATE
-  // These values are shared by all pages inside StoreProvider.
   const [items, setItems] = useState<CartItem[]>([]);
   const [favorites, setFavorites] = useState<string[]>([]);
   const [orders, setOrders] = useState<Order[]>([]);
@@ -100,8 +97,7 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
   const [couponApplied, setCouponApplied] = useState(false);
   const [hydrated, setHydrated] = useState(false);
   const [toast, setToast] = useState("");
-  // LOAD SAVED DATA
-  // This runs once when the website first opens in the browser.
+  // LOAD DATA
   useEffect(() => {
     setItems(read("tt-cart", []));
     setFavorites(read("tt-favs", []));
@@ -112,8 +108,7 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
     setCouponApplied(read("tt-coupon", false));
     setHydrated(true);
   }, []);
-  // SAVE CHANGES
-  // Whenever store data changes, save the newest values in localStorage.
+  // SAVE DATA
   useEffect(() => {
     if (!hydrated) return;
     localStorage.setItem("tt-cart", JSON.stringify(items));
@@ -133,14 +128,12 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
     couponApplied,
     hydrated,
   ]);
-  // TOAST MESSAGE
-  // Shows a short message at the bottom of the screen.
+  // MESSAGE
   const notify = useCallback((message: string) => {
     setToast(message);
     window.setTimeout(() => setToast(""), 2200);
   }, []);
-  // CART CALCULATIONS
-  // reduce() adds all item prices and quantities together.
+  // CART TOTAL
   const subtotal = items.reduce(
     (sum, item) => sum + item.product.price * item.quantity,
     0,
@@ -153,7 +146,6 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
     if (hydrated && subtotal === 0 && couponApplied) setCouponApplied(false);
   }, [subtotal, couponApplied, hydrated]);
   // ADD TO CART
-  // Adds a new product or increases its quantity without passing stock.
   const add = useCallback(
     (product: Product, quantity = 1) => {
       if (product.stock < 1) {
@@ -182,7 +174,6 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
     [notify],
   );
   // CHANGE QUANTITY
-  // Keeps quantity between 1 and the product's available stock.
   const change = useCallback(
     (id: string, n: number) => {
       setItems((current) =>
@@ -200,7 +191,6 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
     [notify],
   );
   // APPLY COUPON
-  // WELCOME10 gives a 10% discount when the cart is not empty.
   const applyCoupon = useCallback(
     (code: string) => {
       const valid = code.trim().toUpperCase() === "WELCOME10" && subtotal > 0;
@@ -214,7 +204,6 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
   );
   const clearCoupon = useCallback(() => setCouponApplied(false), []);
   // PLACE ORDER
-  // Creates an order, saves it in history, then clears cart and coupon data.
   const placeOrder = useCallback(
     (details: OrderDetails) => {
       if (!items.length) return null;
@@ -239,8 +228,7 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
     },
     [items, subtotal, couponApplied, notify],
   );
-  // DEMO LOGIN / LOGOUT
-  // This is browser-only demo authentication, not secure server authentication.
+  // LOGIN / LOGOUT
   const login = useCallback((email: string) => {
     setProfile((current) => ({ ...current, email }));
     setAuthenticated(true);
@@ -249,8 +237,7 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
     setAuthenticated(false);
     notify("ログアウトしました");
   }, [notify]);
-  // SHARED STORE VALUE
-  // useMemo creates the object that every page receives from useStore().
+  // STORE VALUE
   const value = useMemo<Store>(
     () => ({
       items,
@@ -329,8 +316,7 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
   );
 }
 export function useStore() {
-  // CUSTOM HOOK
-  // Pages call useStore() to access cart, favorites, orders, and user data.
+  // STORE HOOK
   const value = useContext(C);
   if (!value) throw new Error("StoreProvider is missing");
   return value;

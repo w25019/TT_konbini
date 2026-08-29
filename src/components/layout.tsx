@@ -6,8 +6,7 @@ import { Menu, Search, ShoppingCart, X } from "lucide-react";
 import { FormEvent, useEffect, useState } from "react";
 import { useStore } from "../context/StoreContext";
 
-// PRICE FORMATTER
-// Changes 1200 into the Japanese price text "¥1,200".
+// PRICE FORMAT
 export const yen = (number: number) =>
   `¥${Math.round(number).toLocaleString("ja-JP")}`;
 
@@ -25,18 +24,16 @@ export function Logo() {
 
 export function Header() {
   // HEADER STATE
-  // menuOpen controls the mobile menu. search stores the search box text.
   const store = useStore();
   const router = useRouter();
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
   const [search, setSearch] = useState("");
 
-  // Close the mobile menu after moving to another page.
+  // CLOSE MOBILE MENU
   useEffect(() => setMenuOpen(false), [pathname]);
 
   // PRODUCT SEARCH
-  // Sends the typed keyword to the product page as a URL query parameter.
   function searchProducts(event: FormEvent) {
     event.preventDefault();
     const value = search.trim();
@@ -106,8 +103,7 @@ export function Footer() {
 }
 
 export function Shell({ children }: { children: React.ReactNode }) {
-  // PAGE SHELL
-  // Every page gets the same header, main content area, and footer.
+  // PAGE LAYOUT
   return (
     <>
       <Header />

@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { Shell } from "../../src/components/layout";
 import { useStore } from "../../src/context/StoreContext";
 export default function Register() {
-  // REGISTRATION FORM STATE
+  // FORM STATE
   const s = useStore();
   const router = useRouter();
   const [name, setName] = useState("");
@@ -12,8 +12,7 @@ export default function Register() {
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
   const [error, setError] = useState("");
-  // VALIDATE AND SAVE DEMO USER
-  // The profile is stored only in this browser.
+  // FORM VALIDATION
   function submit(e: FormEvent) {
     e.preventDefault();
     if (!name.trim() || !email.trim() || !password) {

@@ -8,8 +8,7 @@ import { Shell } from "../../src/components/layout";
 const PAGE_SIZE = 12;
 
 export default function Products() {
-  // READ URL FILTERS
-  // Example: /products?search=お茶 or /products?deal=1
+  // URL FILTERS
   const q = useSearchParams();
   const queryKey = q.toString();
   const urlCategory = q.get("category") || "すべて";
@@ -18,7 +17,6 @@ export default function Products() {
   const isNew = q.get("new") === "1";
   const popular = q.get("popular") === "1";
   // FILTER STATE
-  // Each state value belongs to one control in the filter panel.
   const [cat, setCat] = useState(urlCategory);
   const [min, setMin] = useState(0);
   const [max, setMax] = useState(9999);
@@ -27,7 +25,7 @@ export default function Products() {
   const [brandSearch, setBrandSearch] = useState("");
   const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
   const [page, setPage] = useState(1);
-  // RESET PAGE WHEN URL CHANGES
+  // RESET PAGE
   useEffect(() => {
     setCat(urlCategory);
     setPage(1);
@@ -49,7 +47,6 @@ export default function Products() {
     ],
   );
   // BRAND LIST
-  // Set removes duplicate brand names from the product data.
   const brands = useMemo(
     () =>
       Array.from(new Set(products.map((p) => p.brand))).sort((a, b) =>
@@ -60,8 +57,7 @@ export default function Products() {
   const visibleBrands = brands.filter((b) =>
     b.toLocaleLowerCase().includes(brandSearch.trim().toLocaleLowerCase()),
   );
-  // FILTER AND SORT PRODUCTS
-  // All active conditions are combined before the products are displayed.
+  // FILTER AND SORT
   const filtered = useMemo(() => {
     const term = search.toLocaleLowerCase();
     return products
@@ -102,7 +98,6 @@ export default function Products() {
     sort,
   ]);
   // PAGINATION
-  // slice() selects only the 12 products for the current page.
   const pages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
   const current = Math.min(page, pages);
   const shown = filtered.slice((current - 1) * PAGE_SIZE, current * PAGE_SIZE);
@@ -115,7 +110,7 @@ export default function Products() {
         : popular
           ? "人気商品"
           : "商品一覧";
-  // RESET ALL FILTER CONTROLS
+  // RESET FILTER
   function reset() {
     setCat("すべて");
     setMin(0);
@@ -126,7 +121,7 @@ export default function Products() {
     setSelectedBrands([]);
     setPage(1);
   }
-  // SELECT OR REMOVE A BRAND
+  // BRAND CHECKBOX
   function toggleBrand(brand: string) {
     setSelectedBrands((current) =>
       current.includes(brand)

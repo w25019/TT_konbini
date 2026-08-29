@@ -12,15 +12,13 @@ import { Shell, yen } from "../../src/components/layout";
 import { useStore } from "../../src/context/StoreContext";
 export default function Cart() {
   // CART DATA
-  // useStore() gives this page the shared cart and coupon functions.
   const s = useStore();
   const [code, setCode] = useState(s.couponCode);
   const [message, setMessage] = useState("");
-  // PRICE CALCULATION
-  // Shipping is free when the subtotal reaches ¥2,000.
+  // CART TOTAL
   const shipping = s.subtotal >= 2000 || !s.count ? 0 : 220;
   const total = s.subtotal + shipping - s.discount;
-  // APPLY THE COUPON ENTERED BY THE USER
+  // COUPON
   function apply() {
     const valid = s.applyCoupon(code);
     setMessage(

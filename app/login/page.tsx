@@ -6,18 +6,18 @@ import { Logo, Shell } from "../../src/components/layout";
 import { useRouter } from "next/navigation";
 import { useStore } from "../../src/context/StoreContext";
 export default function Login() {
-  // LOGIN FORM STATE
+  // FORM STATE
   const [show, setShow] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const r = useRouter();
   const s = useStore();
-  // Already logged-in users do not need to see the login page again.
+  // LOGIN CHECK
   useEffect(() => {
     if (s.hydrated && s.isAuthenticated) r.replace("/mypage");
   }, [s.hydrated, s.isAuthenticated, r]);
-  // FORM VALIDATION AND DEMO LOGIN
+  // FORM VALIDATION
   function submit(e: FormEvent) {
     e.preventDefault();
     if (!email.trim() || !password) {

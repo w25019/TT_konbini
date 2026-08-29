@@ -5,7 +5,6 @@ import { ProductImage } from "../../src/components/product";
 import { useStore } from "../../src/context/StoreContext";
 export default function Orders() {
   // ORDER HISTORY
-  // Orders come from StoreContext and are saved in localStorage.
   const { orders } = useStore();
   return (
     <Shell>

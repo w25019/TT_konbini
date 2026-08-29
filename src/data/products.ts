@@ -1,5 +1,4 @@
-// PRODUCT DATA TYPE
-// Every product in the store must follow this structure.
+// PRODUCT DATA
 export type Product = {
   id: string;
   name: string;

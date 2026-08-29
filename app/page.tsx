@@ -6,8 +6,7 @@ import { ProductCard, ProductImage } from "../src/components/product";
 import { categories, products } from "../src/data/products";
 
 export default function Home() {
-  // HOMEPAGE PRODUCT DATA
-  // filter() chooses popular items and slice() limits the amount displayed.
+  // HOME PRODUCTS
   const popularProducts = products
     .filter((product) => product.isPopular)
     .slice(0, 4);

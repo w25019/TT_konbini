@@ -13,18 +13,15 @@ import {
 import { Shell } from "../../../src/components/layout";
 import { useStore } from "../../../src/context/StoreContext";
 export default function DetailClient({ product: p }: { product: Product }) {
-  // PRODUCT DETAIL STATE
-  // qty is quantity, tab is the selected information tab, and selected is the image.
+  // PRODUCT STATE
   const { add, toggleFavorite, favorites, notify } = useStore();
   const [qty, setQty] = useState(1);
   const [tab, setTab] = useState(0);
   const [selected, setSelected] = useState(0);
   // IMAGE GALLERY
-  // Set removes duplicate image URLs before thumbnails are displayed.
   const images = Array.from(new Set([p.image, ...(p.images || [])]));
 
   // RELATED PRODUCTS
-  // First choose the same category, then add popular products.
   const related = useMemo(() => {
     const same = products.filter(
       (x) => x.id !== p.id && x.category === p.category,
@@ -35,7 +32,6 @@ export default function DetailClient({ product: p }: { product: Product }) {
     return [...same, ...popular].slice(0, 5);
   }, [p]);
   // SHARE PRODUCT
-  // Use the device share menu when available; otherwise copy the page URL.
   async function share() {
     const data = {
       title: p.name,

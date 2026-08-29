@@ -7,17 +7,15 @@ import { Shell, yen } from "../../src/components/layout";
 import { Order, useStore } from "../../src/context/StoreContext";
 const weekdays = ["日", "月", "火", "水", "木", "金", "土"];
 
-// JAPANESE DATE FORMAT
-// Converts a Date object into a readable Japanese delivery date.
+// DATE FORMAT
 function formatDate(date: Date) {
   return `${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}日（${weekdays[date.getDay()]}）`;
 }
 export default function Checkout() {
-  // CHECKOUT DATA AND FORM STATE
+  // CHECKOUT DATA
   const s = useStore();
 
   // DELIVERY DATES
-  // Creates five choices starting from tomorrow.
   const dates = useMemo(
     () =>
       Array.from({ length: 5 }, (_, i) => {
@@ -34,12 +32,10 @@ export default function Checkout() {
   const [time, setTime] = useState("14:00〜16:00");
   const [done, setDone] = useState<Order | null>(null);
   // ORDER TOTAL
-  // Cash on delivery and convenience-store payment have extra fees.
   const fee = pay === "代金引換" ? 330 : pay === "コンビニ払い" ? 220 : 0;
   const shipping = s.subtotal >= 2000 ? 0 : 220;
   const total = s.subtotal + shipping + fee - s.discount;
   // CONFIRM ORDER
-  // Checks the address and sends the order details to StoreContext.
   function submit() {
     if (!s.address) {
       s.notify("お届け先を登録してください");
@@ -266,8 +262,7 @@ function Card({
   title: string;
   children: React.ReactNode;
 }) {
-  // REUSABLE CHECKOUT SECTION
-  // This keeps address, delivery, payment, and memo cards consistent.
+  // CHECKOUT CARD
   return (
     <section className="checkout-card">
       <h2>

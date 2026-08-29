@@ -16,7 +16,6 @@ import {
 import { useStore } from "../context/StoreContext";
 
 // MY PAGE MENU
-// Each item contains: icon, label, and destination URL.
 export const accountNav = [
   [Box, "注文履歴", "/orders"],
   [Heart, "お気に入り", "/favorites"],
@@ -53,8 +52,7 @@ export function AccountPage({
   title: string;
   children: React.ReactNode;
 }) {
-  // REUSABLE ACCOUNT LAYOUT
-  // All My Page screens share the same side menu and content area.
+  // ACCOUNT LAYOUT
   return (
     <div className="container account">
       <AccountNav />
@@ -66,8 +64,7 @@ export function AccountPage({
   );
 }
 export function AccountGuard({ children }: { children: React.ReactNode }) {
-  // LOGIN GUARD
-  // Redirect visitors to /login when they are not authenticated.
+  // LOGIN CHECK
   const s = useStore();
   const router = useRouter();
   useEffect(() => {
