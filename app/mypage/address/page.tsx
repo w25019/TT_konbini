@@ -1,4 +1,104 @@
 "use client";
-import{FormEvent,useEffect,useState}from"react";import{AccountGuard,AccountPage}from"../../../src/components/account";import{Shell}from"../../../src/components/layout";import{Address,useStore}from"../../../src/context/StoreContext";
-const empty:Address={name:"",postalCode:"",prefecture:"",city:"",street:"",building:"",phone:""};
-export default function AddressPage(){const s=useStore();const[form,setForm]=useState<Address>(empty);useEffect(()=>setForm(s.address||{...empty,name:s.profile.name,phone:s.profile.phone}),[s.address,s.profile]);function field(key:keyof Address,value:string){setForm({...form,[key]:value})}function submit(e:FormEvent){e.preventDefault();s.saveAddress(form);s.notify("お届け先を保存しました")}return <Shell><AccountGuard><AccountPage title="お届け先管理"><p>デモ用のデフォルトお届け先を1件登録できます。</p><form className="settings-form two-col" onSubmit={submit}><label>氏名<input value={form.name} onChange={e=>field("name",e.target.value)} required/></label><label>郵便番号<input value={form.postalCode} onChange={e=>field("postalCode",e.target.value)} placeholder="100-0001" required/></label><label>都道府県<input value={form.prefecture} onChange={e=>field("prefecture",e.target.value)} required/></label><label>市区町村<input value={form.city} onChange={e=>field("city",e.target.value)} required/></label><label>番地<input value={form.street} onChange={e=>field("street",e.target.value)} required/></label><label>建物名<input value={form.building} onChange={e=>field("building",e.target.value)}/></label><label>電話番号<input type="tel" value={form.phone} onChange={e=>field("phone",e.target.value)} required/></label><button className="primary" type="submit">お届け先を保存</button></form></AccountPage></AccountGuard></Shell>}
+import { FormEvent, useEffect, useState } from "react";
+import { AccountGuard, AccountPage } from "../../../src/components/account";
+import { Shell } from "../../../src/components/layout";
+import { Address, useStore } from "../../../src/context/StoreContext";
+const empty: Address = {
+  name: "",
+  postalCode: "",
+  prefecture: "",
+  city: "",
+  street: "",
+  building: "",
+  phone: "",
+};
+export default function AddressPage() {
+  const s = useStore();
+  const [form, setForm] = useState<Address>(empty);
+  useEffect(
+    () =>
+      setForm(
+        s.address || { ...empty, name: s.profile.name, phone: s.profile.phone },
+      ),
+    [s.address, s.profile],
+  );
+  function field(key: keyof Address, value: string) {
+    setForm({ ...form, [key]: value });
+  }
+  function submit(e: FormEvent) {
+    e.preventDefault();
+    s.saveAddress(form);
+    s.notify("お届け先を保存しました");
+  }
+  return (
+    <Shell>
+      <AccountGuard>
+        <AccountPage title="お届け先管理">
+          <p>デモ用のデフォルトお届け先を1件登録できます。</p>
+          <form className="settings-form two-col" onSubmit={submit}>
+            <label>
+              氏名
+              <input
+                value={form.name}
+                onChange={(e) => field("name", e.target.value)}
+                required
+              />
+            </label>
+            <label>
+              郵便番号
+              <input
+                value={form.postalCode}
+                onChange={(e) => field("postalCode", e.target.value)}
+                placeholder="100-0001"
+                required
+              />
+            </label>
+            <label>
+              都道府県
+              <input
+                value={form.prefecture}
+                onChange={(e) => field("prefecture", e.target.value)}
+                required
+              />
+            </label>
+            <label>
+              市区町村
+              <input
+                value={form.city}
+                onChange={(e) => field("city", e.target.value)}
+                required
+              />
+            </label>
+            <label>
+              番地
+              <input
+                value={form.street}
+                onChange={(e) => field("street", e.target.value)}
+                required
+              />
+            </label>
+            <label>
+              建物名
+              <input
+                value={form.building}
+                onChange={(e) => field("building", e.target.value)}
+              />
+            </label>
+            <label>
+              電話番号
+              <input
+                type="tel"
+                value={form.phone}
+                onChange={(e) => field("phone", e.target.value)}
+                required
+              />
+            </label>
+            <button className="primary" type="submit">
+              お届け先を保存
+            </button>
+          </form>
+        </AccountPage>
+      </AccountGuard>
+    </Shell>
+  );
+}

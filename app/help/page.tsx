@@ -1,2 +1,38 @@
-import Link from"next/link";import{Shell}from"../../src/components/layout";
-export default function Help(){return <Shell><div className="container simple-page"><article className="info-page"><h1>ヘルプ・よくある質問</h1><section><h2>配送日は選べますか？</h2><p>チェックアウト画面で、翌日から5日間の配送希望日を選択できます。</p></section><section><h2>支払いは発生しますか？</h2><p>いいえ。本サイトはデモのため、実際の支払い処理は行われません。</p></section><section><h2>アカウント情報はどこに保存されますか？</h2><p>入力したデモ情報は、ご利用中のブラウザのローカルストレージに保存されます。</p></section><section><h2>お問い合わせ</h2><p>デモのお問い合わせフォームから送信体験を確認できます。</p><Link className="primary" href="/mypage/contact">お問い合わせへ</Link></section></article></div></Shell>}
+import Link from "next/link";
+import { Shell } from "../../src/components/layout";
+export default function Help() {
+  return (
+    <Shell>
+      <div className="container simple-page">
+        <article className="info-page">
+          <h1>ヘルプ・よくある質問</h1>
+          <section>
+            <h2>配送日は選べますか？</h2>
+            <p>
+              チェックアウト画面で、翌日から5日間の配送希望日を選択できます。
+            </p>
+          </section>
+          <section>
+            <h2>支払いは発生しますか？</h2>
+            <p>
+              いいえ。本サイトはデモのため、実際の支払い処理は行われません。
+            </p>
+          </section>
+          <section>
+            <h2>アカウント情報はどこに保存されますか？</h2>
+            <p>
+              入力したデモ情報は、ご利用中のブラウザのローカルストレージに保存されます。
+            </p>
+          </section>
+          <section>
+            <h2>お問い合わせ</h2>
+            <p>デモのお問い合わせフォームから送信体験を確認できます。</p>
+            <Link className="primary" href="/mypage/contact">
+              お問い合わせへ
+            </Link>
+          </section>
+        </article>
+      </div>
+    </Shell>
+  );
+}

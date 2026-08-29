@@ -1,2 +1,44 @@
-"use client";import{FormEvent,useState}from"react";import{AccountGuard,AccountPage}from"../../../src/components/account";import{Shell}from"../../../src/components/layout";import{useStore}from"../../../src/context/StoreContext";
-export default function Contact(){const s=useStore();const[done,setDone]=useState(false);function submit(e:FormEvent<HTMLFormElement>){e.preventDefault();setDone(true);e.currentTarget.reset()}return <Shell><AccountGuard><AccountPage title="お問い合わせ">{done&&<p className="form-success" role="status">お問い合わせ内容を受け付けました（デモ）</p>}<form className="settings-form" onSubmit={submit}><label>名前<input defaultValue={s.profile.name} required/></label><label>メールアドレス<input type="email" defaultValue={s.profile.email} required/></label><label>お問い合わせ内容<textarea required rows={6}/></label><button className="primary" type="submit">送信する（デモ）</button></form></AccountPage></AccountGuard></Shell>}
+"use client";
+import { FormEvent, useState } from "react";
+import { AccountGuard, AccountPage } from "../../../src/components/account";
+import { Shell } from "../../../src/components/layout";
+import { useStore } from "../../../src/context/StoreContext";
+export default function Contact() {
+  const s = useStore();
+  const [done, setDone] = useState(false);
+  function submit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setDone(true);
+    e.currentTarget.reset();
+  }
+  return (
+    <Shell>
+      <AccountGuard>
+        <AccountPage title="お問い合わせ">
+          {done && (
+            <p className="form-success" role="status">
+              お問い合わせ内容を受け付けました（デモ）
+            </p>
+          )}
+          <form className="settings-form" onSubmit={submit}>
+            <label>
+              名前
+              <input defaultValue={s.profile.name} required />
+            </label>
+            <label>
+              メールアドレス
+              <input type="email" defaultValue={s.profile.email} required />
+            </label>
+            <label>
+              お問い合わせ内容
+              <textarea required rows={6} />
+            </label>
+            <button className="primary" type="submit">
+              送信する（デモ）
+            </button>
+          </form>
+        </AccountPage>
+      </AccountGuard>
+    </Shell>
+  );
+}

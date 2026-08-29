@@ -1,2 +1,22 @@
-"use client";import{AccountGuard,AccountPage}from"../../../src/components/account";import{Shell}from"../../../src/components/layout";import{useStore}from"../../../src/context/StoreContext";
-export default function Points(){const s=useStore();return <Shell><AccountGuard><AccountPage title="ポイント"><div className="point-panel"><small>保有ポイント</small><strong>{s.points.toLocaleString("ja-JP")} pt</strong><p>ご注文金額100円につき1ポイントを付与するデモ表示です。実際の金銭価値はありません。</p></div></AccountPage></AccountGuard></Shell>}
+"use client";
+import { AccountGuard, AccountPage } from "../../../src/components/account";
+import { Shell } from "../../../src/components/layout";
+import { useStore } from "../../../src/context/StoreContext";
+export default function Points() {
+  const s = useStore();
+  return (
+    <Shell>
+      <AccountGuard>
+        <AccountPage title="ポイント">
+          <div className="point-panel">
+            <small>保有ポイント</small>
+            <strong>{s.points.toLocaleString("ja-JP")} pt</strong>
+            <p>
+              ご注文金額100円につき1ポイントを付与するデモ表示です。実際の金銭価値はありません。
+            </p>
+          </div>
+        </AccountPage>
+      </AccountGuard>
+    </Shell>
+  );
+}

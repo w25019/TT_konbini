@@ -1,4 +1,151 @@
 "use client";
-import Link from"next/link";import{useEffect}from"react";import{useRouter}from"next/navigation";import{products}from"../../src/data/products";import{ProductCard,ProductImage}from"../../src/components/product";import{AccountNav,accountNav}from"../../src/components/account";import{Shell,yen}from"../../src/components/layout";import{useStore}from"../../src/context/StoreContext";
-export default function MyPage(){const s=useStore();const router=useRouter();useEffect(()=>{if(s.hydrated&&!s.isAuthenticated)router.replace("/login")},[s.hydrated,s.isAuthenticated,router]);if(!s.hydrated||!s.isAuthenticated)return <Shell><div className="container"><p>読み込んでいます...</p></div></Shell>;return <Shell><div className="container account"><AccountNav/><section className="dashboard"><div className="welcome"><div className="avatar">👤</div><div><h1>ようこそ、<strong>{s.profile.name||s.profile.email}</strong> 様</h1><p>いつもご利用ありがとうございます。<br/>お得に便利にお買い物をお楽しみください。</p><span>♣ デモ会員</span><button className="logout" onClick={()=>{s.logout();router.push("/login")}}>ログアウト</button></div><div className="stats"><Stat icon="🪙" t="保有ポイント" n={`${s.points} pt`} href="/mypage/points"/><Stat icon="🎟️" t="クーポン" n="1 枚" href="/mypage/coupons"/><Stat icon="▣" t="注文件数" n={`${s.orders.length} 件`} href="/orders"/></div></div><div className="dash-grid"><section className="recent"><div className="section-title"><h2>最近のご注文</h2><Link href="/orders">すべて見る ›</Link></div>{s.orders.length?s.orders.slice(0,3).map(order=><div className="order-row" key={order.id}><span>{order.items.slice(0,3).map(item=><ProductImage product={item.product} key={item.product.id}/>)}</span><div><b>{new Date(order.createdAt).toLocaleDateString("ja-JP")}</b><small>注文番号：{order.id}</small></div><em>{order.status}</em><b>{yen(order.total)}</b><Link href="/orders">注文詳細を見る</Link></div>):<p>最近の注文はありません。</p>}</section><section className="favorite-preview"><div className="section-title"><h2>おすすめ商品</h2><Link href="/products?popular=1">すべて見る ›</Link></div><div className="product-grid">{products.filter(p=>p.isPopular).slice(0,4).map(p=><ProductCard p={p} key={p.id}/>)}</div></section></div><div className="quick-account">{accountNav.slice(2,6).map(([I,t,h])=><Link href={h} key={t}><I/><span><b>{t}</b><small>登録内容を確認・管理できます</small></span><span>›</span></Link>)}</div></section></div></Shell>}
-function Stat({icon,t,n,href}:{icon:string;t:string;n:string;href:string}){return <div><i>{icon}</i><small>{t}</small><b>{n}</b><Link href={href}>確認する ›</Link></div>}
+import Link from "next/link";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { products } from "../../src/data/products";
+import { ProductCard, ProductImage } from "../../src/components/product";
+import { AccountNav, accountNav } from "../../src/components/account";
+import { Shell, yen } from "../../src/components/layout";
+import { useStore } from "../../src/context/StoreContext";
+export default function MyPage() {
+  const s = useStore();
+  const router = useRouter();
+  useEffect(() => {
+    if (s.hydrated && !s.isAuthenticated) router.replace("/login");
+  }, [s.hydrated, s.isAuthenticated, router]);
+  if (!s.hydrated || !s.isAuthenticated)
+    return (
+      <Shell>
+        <div className="container">
+          <p>読み込んでいます...</p>
+        </div>
+      </Shell>
+    );
+  return (
+    <Shell>
+      <div className="container account">
+        <AccountNav />
+        <section className="dashboard">
+          <div className="welcome">
+            <div className="avatar">👤</div>
+            <div>
+              <h1>
+                ようこそ、<strong>{s.profile.name || s.profile.email}</strong>{" "}
+                様
+              </h1>
+              <p>
+                いつもご利用ありがとうございます。
+                <br />
+                お得に便利にお買い物をお楽しみください。
+              </p>
+              <span>♣ デモ会員</span>
+              <button
+                className="logout"
+                onClick={() => {
+                  s.logout();
+                  router.push("/login");
+                }}
+              >
+                ログアウト
+              </button>
+            </div>
+            <div className="stats">
+              <Stat
+                icon="🪙"
+                t="保有ポイント"
+                n={`${s.points} pt`}
+                href="/mypage/points"
+              />
+              <Stat icon="🎟️" t="クーポン" n="1 枚" href="/mypage/coupons" />
+              <Stat
+                icon="▣"
+                t="注文件数"
+                n={`${s.orders.length} 件`}
+                href="/orders"
+              />
+            </div>
+          </div>
+          <div className="dash-grid">
+            <section className="recent">
+              <div className="section-title">
+                <h2>最近のご注文</h2>
+                <Link href="/orders">すべて見る ›</Link>
+              </div>
+              {s.orders.length ? (
+                s.orders.slice(0, 3).map((order) => (
+                  <div className="order-row" key={order.id}>
+                    <span>
+                      {order.items.slice(0, 3).map((item) => (
+                        <ProductImage
+                          product={item.product}
+                          key={item.product.id}
+                        />
+                      ))}
+                    </span>
+                    <div>
+                      <b>
+                        {new Date(order.createdAt).toLocaleDateString("ja-JP")}
+                      </b>
+                      <small>注文番号：{order.id}</small>
+                    </div>
+                    <em>{order.status}</em>
+                    <b>{yen(order.total)}</b>
+                    <Link href="/orders">注文詳細を見る</Link>
+                  </div>
+                ))
+              ) : (
+                <p>最近の注文はありません。</p>
+              )}
+            </section>
+            <section className="favorite-preview">
+              <div className="section-title">
+                <h2>おすすめ商品</h2>
+                <Link href="/products?popular=1">すべて見る ›</Link>
+              </div>
+              <div className="product-grid">
+                {products
+                  .filter((p) => p.isPopular)
+                  .slice(0, 4)
+                  .map((p) => (
+                    <ProductCard p={p} key={p.id} />
+                  ))}
+              </div>
+            </section>
+          </div>
+          <div className="quick-account">
+            {accountNav.slice(2, 6).map(([I, t, h]) => (
+              <Link href={h} key={t}>
+                <I />
+                <span>
+                  <b>{t}</b>
+                  <small>登録内容を確認・管理できます</small>
+                </span>
+                <span>›</span>
+              </Link>
+            ))}
+          </div>
+        </section>
+      </div>
+    </Shell>
+  );
+}
+function Stat({
+  icon,
+  t,
+  n,
+  href,
+}: {
+  icon: string;
+  t: string;
+  n: string;
+  href: string;
+}) {
+  return (
+    <div>
+      <i>{icon}</i>
+      <small>{t}</small>
+      <b>{n}</b>
+      <Link href={href}>確認する ›</Link>
+    </div>
+  );
+}

@@ -1,2 +1,42 @@
-import{Shell}from"../../src/components/layout";
-export default function Guide(){return <Shell><div className="container simple-page"><article className="info-page"><h1>お買い物ガイド</h1><section><h2>注文方法</h2><p>商品をカートに追加し、数量と合計を確認して購入手続きへ進みます。</p></section><section><h2>配送</h2><p>2,000円以上で送料無料、それ未満は送料220円として計算するデモ仕様です。</p></section><section><h2>支払い</h2><p>クレジットカード、PayPay、代金引換、コンビニ払いを選択できます。実際の決済は行われません。</p></section><section><h2>クーポン</h2><p>カートで「WELCOME10」を入力すると、商品小計から10%割引されます。</p></section><section><h2>返品について（デモ）</h2><p>実際の商品販売はないため返品受付は行っていません。ECサイトの案内例として掲載しています。</p></section></article></div></Shell>}
+import { Shell } from "../../src/components/layout";
+export default function Guide() {
+  return (
+    <Shell>
+      <div className="container simple-page">
+        <article className="info-page">
+          <h1>お買い物ガイド</h1>
+          <section>
+            <h2>注文方法</h2>
+            <p>
+              商品をカートに追加し、数量と合計を確認して購入手続きへ進みます。
+            </p>
+          </section>
+          <section>
+            <h2>配送</h2>
+            <p>
+              2,000円以上で送料無料、それ未満は送料220円として計算するデモ仕様です。
+            </p>
+          </section>
+          <section>
+            <h2>支払い</h2>
+            <p>
+              クレジットカード、PayPay、代金引換、コンビニ払いを選択できます。実際の決済は行われません。
+            </p>
+          </section>
+          <section>
+            <h2>クーポン</h2>
+            <p>
+              カートで「WELCOME10」を入力すると、商品小計から10%割引されます。
+            </p>
+          </section>
+          <section>
+            <h2>返品について（デモ）</h2>
+            <p>
+              実際の商品販売はないため返品受付は行っていません。ECサイトの案内例として掲載しています。
+            </p>
+          </section>
+        </article>
+      </div>
+    </Shell>
+  );
+}

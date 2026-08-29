@@ -1,2 +1,84 @@
-"use client";import Link from"next/link";import{Shell,yen}from"../../src/components/layout";import{ProductImage}from"../../src/components/product";import{useStore}from"../../src/context/StoreContext";
-export default function Orders(){const{orders}=useStore();return <Shell><div className="container simple-page"><h1>注文履歴</h1>{orders.length===0?<div className="empty"><h2>注文履歴はまだありません</h2><p>ご注文が完了すると、こちらに表示されます。</p><Link className="primary" href="/products">お買い物を始める</Link></div>:orders.map(order=><article className="saved-order" key={order.id}><div className="saved-order-head"><span><small>注文日</small><b>{new Date(order.createdAt).toLocaleDateString("ja-JP")}</b></span><span><small>注文番号</small><b>{order.id}</b></span><em>{order.status}</em><strong>{yen(order.total)}</strong></div><div className="saved-order-items">{order.items.map(item=><div key={item.product.id}><ProductImage product={item.product}/><span><b>{item.product.name}</b><small>{yen(item.product.price)} × {item.quantity}</small></span></div>)}</div><div className="order-breakdown"><p><span>商品小計</span><b>{yen(order.subtotal)}</b></p><p><span>送料</span><b>{yen(order.shipping)}</b></p><p><span>割引</span><b>-{yen(order.discount)}</b></p><p><span>支払い手数料</span><b>{yen(order.fee)}</b></p><p className="order-final"><span>最終合計</span><b>{yen(order.total)}</b></p></div><p>お届け予定：{order.deliveryDate} {order.deliveryTime}</p><p>お支払い：{order.payment}　｜　ステータス：{order.status}</p></article>)}</div></Shell>}
+"use client";
+import Link from "next/link";
+import { Shell, yen } from "../../src/components/layout";
+import { ProductImage } from "../../src/components/product";
+import { useStore } from "../../src/context/StoreContext";
+export default function Orders() {
+  // ORDER HISTORY
+  // Orders come from StoreContext and are saved in localStorage.
+  const { orders } = useStore();
+  return (
+    <Shell>
+      <div className="container simple-page">
+        <h1>注文履歴</h1>
+        {orders.length === 0 ? (
+          <div className="empty">
+            <h2>注文履歴はまだありません</h2>
+            <p>ご注文が完了すると、こちらに表示されます。</p>
+            <Link className="primary" href="/products">
+              お買い物を始める
+            </Link>
+          </div>
+        ) : (
+          orders.map((order) => (
+            <article className="saved-order" key={order.id}>
+              <div className="saved-order-head">
+                <span>
+                  <small>注文日</small>
+                  <b>{new Date(order.createdAt).toLocaleDateString("ja-JP")}</b>
+                </span>
+                <span>
+                  <small>注文番号</small>
+                  <b>{order.id}</b>
+                </span>
+                <em>{order.status}</em>
+                <strong>{yen(order.total)}</strong>
+              </div>
+              <div className="saved-order-items">
+                {order.items.map((item) => (
+                  <div key={item.product.id}>
+                    <ProductImage product={item.product} />
+                    <span>
+                      <b>{item.product.name}</b>
+                      <small>
+                        {yen(item.product.price)} × {item.quantity}
+                      </small>
+                    </span>
+                  </div>
+                ))}
+              </div>
+              <div className="order-breakdown">
+                <p>
+                  <span>商品小計</span>
+                  <b>{yen(order.subtotal)}</b>
+                </p>
+                <p>
+                  <span>送料</span>
+                  <b>{yen(order.shipping)}</b>
+                </p>
+                <p>
+                  <span>割引</span>
+                  <b>-{yen(order.discount)}</b>
+                </p>
+                <p>
+                  <span>支払い手数料</span>
+                  <b>{yen(order.fee)}</b>
+                </p>
+                <p className="order-final">
+                  <span>最終合計</span>
+                  <b>{yen(order.total)}</b>
+                </p>
+              </div>
+              <p>
+                お届け予定：{order.deliveryDate} {order.deliveryTime}
+              </p>
+              <p>
+                お支払い：{order.payment}　｜　ステータス：{order.status}
+              </p>
+            </article>
+          ))
+        )}
+      </div>
+    </Shell>
+  );
+}

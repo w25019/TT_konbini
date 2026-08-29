@@ -3,7 +3,9 @@ import ProductsClient from "./ProductsClient";
 
 export default function ProductsPage() {
   return (
-    <Suspense fallback={<div className="container">商品を読み込んでいます...</div>}>
+    <Suspense
+      fallback={<div className="container">商品を読み込んでいます...</div>}
+    >
       <ProductsClient />
     </Suspense>
   );
