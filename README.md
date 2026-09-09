@@ -1,100 +1,195 @@
-# vinext-starter
+# 🏪 TT Online Konbini
 
-A clean full-stack starter running on
-[vinext](https://github.com/cloudflare/vinext), with optional Cloudflare D1 and
-Drizzle support.
+コンビニの商品をオンラインで探して注文できる、ECサイトをイメージしたWebアプリケーションです。
 
-## Prerequisites
+商品検索・カテゴリー絞り込み・お気に入り・カート・クーポン・注文確認など、オンラインショップの基本的な機能を体験できます。
 
-- Node.js `>=22.13.0`
+ポートフォリオ作品として、React / Next.jsを使った状態管理、画面遷移、フォーム処理の学習を目的に開発しました。
 
-## Quick Start
+---
+
+## 📌 概要
+
+TT Online Konbiniでは、おにぎり・飲み物・お菓子・日用品などのコンビニ商品を購入できます。
+
+商品を検索してカートに追加し、配送日時と支払い方法を選択して、注文完了までの流れを体験できます。
+
+このサイトはポートフォリオ用のデモサイトです。実際の注文や決済は行われません。
+
+---
+
+## ✨ 実装機能
+
+### 商品検索・絞り込み
+
+- 商品名・カテゴリー・ブランド検索
+- カテゴリー絞り込み
+- 価格絞り込み
+- ブランド絞り込み
+- 在庫あり商品の表示
+- 価格順・人気順の並び替え
+- ページネーション
+
+---
+
+### 商品詳細
+
+- 商品画像・価格・在庫の表示
+- セール価格と割引率の表示
+- 数量選択
+- カート追加
+- お気に入り登録
+- 関連商品の表示
+- 商品URLの共有
+
+---
+
+### カート
+
+- 商品追加・削除
+- 商品数量の変更
+- 商品小計と送料の計算
+- 2,000円以上で送料無料
+- クーポンコード「WELCOME10」
+- 商品小計から10%OFF
+
+---
+
+### 注文・チェックアウト
+
+- 登録した配送先の表示
+- 配送日と配送時間の選択
+- 支払い方法の選択
+- 注文金額の確認
+- 注文完了画面
+- 注文履歴の保存
+
+---
+
+### マイページ
+
+- デモログイン・ログアウト
+- 会員情報の編集
+- 配送先の登録
+- お気に入り商品の確認
+- クーポンの確認
+- ポイントの確認
+- 注文履歴の確認
+- お問い合わせフォーム
+
+入力したデータはブラウザのLocalStorageに保存されます。
+
+---
+
+## 🛠 使用技術
+
+### Frontend
+
+- Next.js
+- React
+- TypeScript
+- CSS
+- Lucide React
+
+### データ保存
+
+- LocalStorage
+
+### 開発環境
+
+- VS Code
+- Git
+- GitHub
+- Vercel
+
+---
+
+## 📂 ディレクトリ構成
+
+```text
+app
+├── page.tsx
+├── products
+│   ├── page.tsx
+│   ├── ProductsClient.tsx
+│   └── [id]
+│       ├── page.tsx
+│       └── DetailClient.tsx
+├── cart
+│   └── page.tsx
+├── checkout
+│   └── page.tsx
+├── login
+│   └── page.tsx
+├── mypage
+│   ├── page.tsx
+│   ├── profile
+│   └── address
+└── orders
+    └── page.tsx
+
+src
+├── components
+│   ├── layout.tsx
+│   ├── product.tsx
+│   └── account.tsx
+├── context
+│   └── StoreContext.tsx
+└── data
+    └── products.ts
+
+public
+├── banners
+└── products
+```
+
+---
+
+## 💡 工夫した点
+
+- StoreContextを使ってカート・お気に入り・注文情報を管理
+- LocalStorageを使ってページ更新後もデータを保持
+- 商品検索と複数の絞り込み条件を組み合わせて実装
+- 在庫数を超えて商品を追加できないように設定
+- カート・チェックアウト・注文履歴で同じ金額になるように計算
+- PCとスマートフォンの両方で使えるレスポンシブデザイン
+
+---
+
+## 🚀 今後の改善予定
+
+- データベースとの連携
+- 本物のユーザー認証
+- 管理者用の商品管理ページ
+- 商品レビュー投稿機能
+- 注文状況の更新機能
+- APIを使った商品データの取得
+
+---
+
+## 🌐 デモサイト
+
+[TT Online Konbiniを見る](https://tt-konbini-fd6x.vercel.app/)
+
+---
+
+## 💻 ローカルでの実行方法
 
 ```bash
 npm install
 npm run dev
-npm run build
 ```
 
-This starter does not use `wrangler.jsonc`.
+ブラウザで [http://localhost:3000](http://localhost:3000) を開いてください。
 
-## Included Shape
+---
 
-- edit site code under `app/`
-- `.openai/hosting.json` declares optional Sites D1 and R2 bindings
-- `vite.config.ts` simulates declared bindings for local development
-- `db/schema.ts` starts intentionally empty
-- `examples/d1/` contains an optional D1 example surface
-- `drizzle.config.ts` supports local migration generation when needed
+## 👨‍💻 開発者
 
-## Workspace Auth Headers
+YOON EI PHYO
 
-Signed-in visitors receive both `oai-authenticated-user-id` and `oai-authenticated-user-email`. Private Sites require every visitor to sign in; public Sites may also have anonymous visitors, for whom neither header is present.
+専門学校沖縄ビジネス外語学院
 
-The user ID is stable for the same user on the same Site and different across Sites. Email and name are intended for display or contact purposes.
+Webプログラミングコース
 
-SIWC-authenticated workspace sites may also receive
-`oai-authenticated-user-full-name` when the user's SIWC profile has a non-empty
-`name` claim. The full-name value is percent-encoded UTF-8 and is accompanied by
-`oai-authenticated-user-full-name-encoding: percent-encoded-utf-8`.
-
-Treat the full name as optional and fall back to email when it is absent:
-
-```tsx
-import { headers } from "next/headers";
-
-export default async function Home() {
-  const requestHeaders = await headers();
-  const userId = requestHeaders.get("oai-authenticated-user-id");
-  const email = requestHeaders.get("oai-authenticated-user-email");
-  const encodedFullName = requestHeaders.get("oai-authenticated-user-full-name");
-  const fullName =
-    encodedFullName &&
-    requestHeaders.get("oai-authenticated-user-full-name-encoding") ===
-      "percent-encoded-utf-8"
-      ? decodeURIComponent(encodedFullName)
-      : null;
-
-  const displayName = fullName ?? email;
-  // ...
-}
-```
-
-## Optional Dispatch-Owned ChatGPT Sign-In
-
-Import the ready-to-use helpers from `app/chatgpt-auth.ts` when the site needs
-optional or required ChatGPT sign-in:
-
-- Use `getChatGPTUser()` for optional signed-in UI.
-- Use `requireChatGPTUser(returnTo)` for server-rendered pages that should send
-  anonymous visitors through Sign in with ChatGPT.
-- Use `chatGPTSignInPath(returnTo)` and `chatGPTSignOutPath(returnTo)` for
-  browser links or actions.
-- Pass a same-origin relative `returnTo` path for the destination after sign-in
-  or sign-out. The helper validates and safely encodes it.
-- Mark protected pages with `export const dynamic = "force-dynamic"` because
-  they depend on per-request identity headers.
-
-Dispatch owns `/signin-with-chatgpt`, `/signout-with-chatgpt`, `/callback`, the
-OAuth cookies, and identity header injection. Do not implement app routes for
-those reserved paths. Routes that do not import and call the helper remain
-anonymous-compatible.
-
-SIWC establishes identity only; it does not prove workspace membership. Use the
-Sites hosting platform's access policy controls for workspace-wide restrictions,
-or enforce explicit server-side membership or allowlist checks.
-
-Use SIWC for account pages, user-specific dashboards, saved records, and write
-actions tied to the current ChatGPT user. Leave public content anonymous.
-
-## Useful Commands
-
-- `npm run dev`: start local development
-- `npm run build`: verify the vinext build output
-- `npm test`: build the starter and verify its rendered loading skeleton
-- `npm run db:generate`: generate Drizzle migrations after schema changes
-
-## Learn More
-
-- [vinext Documentation](https://github.com/cloudflare/vinext)
-- [Drizzle D1 Guide](https://orm.drizzle.team/docs/get-started/d1-new)
+将来はバックエンドエンジニア・フルスタックエンジニアとして活躍することを目指しています。
